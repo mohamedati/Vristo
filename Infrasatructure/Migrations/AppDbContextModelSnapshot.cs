@@ -203,7 +203,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 6, 3, 4, 32, 50, 864, DateTimeKind.Local).AddTicks(1681));
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("DeletedAt")
                         .IsRequired()

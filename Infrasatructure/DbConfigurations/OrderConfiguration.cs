@@ -17,7 +17,7 @@ namespace Infrastructure.DbConfigurations
                 entity.ToTable("Order");
 
 
-                entity.Property(a => a.Date).HasDefaultValue(DateTime.Now);
+                entity.Property(a => a.Date).HasDefaultValueSql("GETUTCDATE()");
 
                 entity.HasOne(a => a.Creator)
                        .WithMany(a => a.OrderCreatedBy)
