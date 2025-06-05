@@ -1,7 +1,8 @@
-using API.Config;
+﻿using API.Config;
 using API.Extentions;
 using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using VristoMarket.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddIdentityConfig();
 builder.Services.AddCorsPolicy();
+builder.Services.ConfigureSerilog(builder.Configuration);
+
+builder.Host.UseSerilog(); // استخدم Serilog بدلاً من Logger الافتراضي
+
 
 var app = builder.Build();
 
