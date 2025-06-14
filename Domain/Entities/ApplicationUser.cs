@@ -13,6 +13,9 @@ namespace Domain.Entities
         
         public Cart Cart { get; set; }
 
+        public string RefreshToken {  get; set; }
+
+        public DateTime RefreshTokenExpiredAt { get; set; }
         public IEnumerable<Cart> CartsCreatedBy { get; set; }
 
         public IEnumerable<Cart> CartsUpdatedBy { get; set; }

@@ -1,5 +1,6 @@
 ﻿using API.Config;
 using API.Extentions;
+using API.MiddleWares;
 using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -16,6 +17,8 @@ builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddIdentityConfig();
 builder.Services.AddCorsPolicy();
 builder.Services.ConfigureSerilog(builder.Configuration);
+builder.Services.ConfigSwagger();
+builder.Services.ConfigureJWT();
 
 builder.Host.UseSerilog(); // استخدم Serilog بدلاً من Logger الافتراضي
 
@@ -32,11 +35,18 @@ if (!app.Environment.IsDevelopment())
 app.InitialzeDBAsync().Wait();
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.UseMiddleware<GlobalErrorHandlerMiddleWare>();
 
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
+    c.RoutePrefix = ""; 
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
