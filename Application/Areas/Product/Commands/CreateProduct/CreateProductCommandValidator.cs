@@ -13,9 +13,9 @@ namespace Application.Areas.Product.Commands.CreateProduct
     public  class CreateProductCommandValidator:AbstractValidator<CreateProductCommand>
     {
         private readonly IAppDbContext appDb;
-        private readonly IStringLocalizer localizer;
+        private readonly IStringLocalizer<Resources.Resources> localizer;
 
-        public CreateProductCommandValidator(IAppDbContext appDb,IStringLocalizer localizer)
+        public CreateProductCommandValidator(IAppDbContext appDb, IStringLocalizer<Resources.Resources> localizer)
         {
             RuleFor(x => x.ArName)
                 .NotEmpty()

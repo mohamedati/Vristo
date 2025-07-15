@@ -2,6 +2,7 @@
 using Application.Common.Interfaces;
 using Infrastructure.Contexts;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
@@ -27,7 +28,12 @@ namespace VristoMarket.Config
             services.AddScoped<ICurrentUserService, CurrentUserService>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
-      
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
 
         }
     }

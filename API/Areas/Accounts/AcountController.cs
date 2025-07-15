@@ -1,5 +1,5 @@
 ﻿using API.Extentions;
-using Application.Areas.Account.Commands;
+using Application.Areas.Account.Commands.ForgetPasswordCommand;
 using Application.Areas.Account.Commands.LoginCommand;
 using Application.Areas.Account.Commands.RefreshTokenCommand;
 using Application.Areas.Account.Commands.RegisterCommand;

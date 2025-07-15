@@ -24,10 +24,9 @@ namespace Application.Areas.Account.Commands.RegisterCommand
 
     public class RegisterCommandHandler
             (IAppDbContext appDb,
-        ICurrentUserService currentUser,
-        IJWTService jWT
-        , IStringLocalizer<Resources.Resources> localizer,
-        SignInManager<ApplicationUser> signInManager,
+ 
+         IStringLocalizer<Resources.Resources> localizer,
+     
         UserManager<ApplicationUser> userManager,
         IConfiguration config
       ) : IRequestHandler<RegisterCommand>

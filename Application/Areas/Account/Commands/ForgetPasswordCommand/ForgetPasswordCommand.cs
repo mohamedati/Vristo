@@ -11,20 +11,20 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
-namespace Application.Areas.Account.Commands
+namespace Application.Areas.Account.Commands.ForgetPasswordCommand
 {
-    public  class ForgetPasswordCommand :IRequest
+    public class ForgetPasswordCommand : IRequest
     {
         public string Email { get; set; } = null!;
     }
 
-    public class ForgetPasswordCommandHandler (
+    public class ForgetPasswordCommandHandler(
         IAppDbContext appDb,
         IEmailSender emailSender,
         IStringLocalizer<Resources.Resources> localizer,
         UserManager<ApplicationUser> userManager) : IRequestHandler<ForgetPasswordCommand>
     {
-        public async  Task Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
+        public async Task Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await userManager.FindByEmailAsync(request.Email);
             if (user == null)
@@ -34,7 +34,7 @@ namespace Application.Areas.Account.Commands
 
             var resetLink = $"https://https:4200/reset-password?token={HttpUtility.UrlEncode(Token)}&email={HttpUtility.UrlEncode(user.Email)}";
 
-             emailSender.SendEmail(user.Email, "Reset Password Link From Vristo Market", resetLink);
+            emailSender.SendEmail(user.Email, "Reset Password Link From Vristo Market", resetLink);
 
         }
     }

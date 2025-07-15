@@ -63,9 +63,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 app.InitialzeDBAsync().Wait();
+
 app.UseHttpsRedirection();
+app.UseMiddleware<GlobalErrorHandlerMiddleWare>();
 app.UseRouting();
 app.UseRequestLocalization(localizationOptions);
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -77,7 +80,7 @@ app.UseStaticFiles(new StaticFileOptions
     ),
     RequestPath = "/Uploads"
 });
-app.UseMiddleware<GlobalErrorHandlerMiddleWare>();
+
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>

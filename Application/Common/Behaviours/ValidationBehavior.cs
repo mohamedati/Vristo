@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Application.Common.Exceptions;
 using FluentValidation;
 using MediatR;
+
 
 namespace Application.Common.Behaviours
 {
@@ -19,25 +17,44 @@ namespace Application.Common.Behaviours
                 _validators = validators;
             }
 
-            public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+        public async Task<TResponse> Handle(
+              TRequest request,
+              RequestHandlerDelegate<TResponse> next,
+              CancellationToken cancellationToken
+          )
+        {
+            if (_validators.Any())
             {
-                if (_validators.Any())
+                var context = new ValidationContext<TRequest>(request);
+
+                var ValidationResults = await Task.WhenAll(
+                    _validators.Select(v => v.ValidateAsync(context, cancellationToken))
+                );
+
+                var failures = ValidationResults.Where(r => r.Errors.Any()).SelectMany(r => r.Errors).ToList();
+
+                // If failures are found, modify the error key if necessary
+                if (failures.Any())
                 {
-                    var context = new ValidationContext<TRequest>(request);
+                    foreach (var failure in failures)
+                    {
+                        // Check if the failure PropertyName is empty (which happens when using anonymous objects)
+                        if (string.IsNullOrWhiteSpace(failure.PropertyName))
+                        {
+                            // Set the error key to "otherErrors"
+                            failure.PropertyName = "otherErrors";
+                            continue;
+                        }
 
-                    var failures = _validators
-                        .Select(v => v.Validate(context))
-                        .SelectMany(result => result.Errors)
-                        .Where(f => f != null)
-                        .ToList();
+                        failure.PropertyName = failure.PropertyName;
+                    }
 
-                    if (failures.Count != 0)
-                        throw new ValidationException(failures);
+                    throw new Application.Common.Exceptions.ValidationException(failures);
                 }
-
-                return await next();
             }
+            return await next();
         }
+    }
 
     }
 
