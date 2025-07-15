@@ -22,17 +22,25 @@ namespace Infrastructure.Contexts
         public DbSet<Order> Orders { get  ; set  ; }
         public DbSet<OrderProduct> OrderProducts { get  ; set  ; }
 
+        public DbSet<WishList> wishLists { get; set; }
+
         public  async Task SaveChangesAsync()
         {
-            base.SaveChangesAsync();
+            await base.SaveChangesAsync();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             ConfigureDB.Configure(builder);
-        }
+            builder.Entity<ProductCategory>()
+                .HasQueryFilter(a => a.DeletedAt == null);
 
-        
+            builder.Entity<Product>()
+              .HasQueryFilter(a => a.DeletedAt == null);
+        }
+  
+
+
     }
 }

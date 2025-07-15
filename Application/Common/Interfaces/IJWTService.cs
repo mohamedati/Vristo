@@ -13,5 +13,7 @@ namespace Application.Common.Interfaces
 
         string GenerateRefreshToken();
 
+
+
     }
 }

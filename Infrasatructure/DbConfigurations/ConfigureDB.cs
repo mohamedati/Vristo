@@ -18,6 +18,7 @@ namespace Infrastructure.DbConfigurations
             OrderProductConfiguration.Configure(modelBuilder);
             ProductConfiguration.Configure(modelBuilder);
             UserConfiguration.Configure(modelBuilder);
+            WishListConfiguration.Configure(modelBuilder);
         }
     }
 }

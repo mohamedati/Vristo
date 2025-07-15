@@ -21,22 +21,26 @@ namespace API.Attributes
 
             }
 
-            var key=System.Text.Encoding.UTF8.GetBytes("your_super_secret_key_123456789");
+            var key=System.Text.Encoding.UTF8.GetBytes("your_super_secret_key_123456789101112");
             var tokenHandler=new JwtSecurityTokenHandler();
 
             SecurityToken validationResult;
 
             try
             {
-                tokenHandler.ValidateToken(authorizationHeader, new TokenValidationParameters
+                var principal= tokenHandler.ValidateToken(authorizationHeader, new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ClockSkew = TimeSpan.Zero
-                }, out validationResult);
-            }catch(SecurityTokenExpiredException)
+                }, out _);
+
+                context.HttpContext.User = principal;
+
+            }
+            catch (SecurityTokenExpiredException)
             {
 
                 throw new ForbiddenAccessException("InvalidToken");

@@ -2,6 +2,7 @@
 using API.Extentions;
 using API.MiddleWares;
 using Infrastructure.Contexts;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using VristoMarket.Config;
@@ -9,8 +10,11 @@ using VristoMarket.Config;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 
 builder.Services.AddDbConfig(builder.Configuration);
@@ -18,13 +22,36 @@ builder.Services.AddIdentityConfig();
 builder.Services.AddCorsPolicy();
 builder.Services.ConfigureSerilog(builder.Configuration);
 builder.Services.ConfigSwagger();
-builder.Services.ConfigureJWT();
+builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.ConfigureMediatR();
 
 builder.Host.UseSerilog(); // استخدم Serilog بدلاً من Logger الافتراضي
 
 
+
+
 var app = builder.Build();
 
+var supportedCultures = new[] { "en", "ar" };
+
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("en")
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+localizationOptions.RequestCultureProviders = new List<IRequestCultureProvider>
+{
+    new CustomRequestCultureProvider(context =>
+    {
+        var culture = context.Request.Headers["culture"].FirstOrDefault();
+        if (!string.IsNullOrWhiteSpace(culture) && supportedCultures.Contains(culture))
+        {
+            return Task.FromResult(new ProviderCultureResult(culture, culture));
+        }
+
+        return Task.FromResult(new ProviderCultureResult("en", "en"));
+    })
+};
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

@@ -6,6 +6,7 @@
 
         public bool IsSuccess {  get; set; }
 
+        public object? Data { get; set; }
         public Dictionary<string, string[]> Errors {  get; set; }
     }
 }

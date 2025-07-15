@@ -28,6 +28,7 @@ namespace Infrastructure.DbConfigurations
                   .HasForeignKey(a => a.CategoryID)
                   .OnDelete(deleteBehavior: DeleteBehavior.NoAction); ;
 
+               
 
                 entity.HasOne(a => a.Creator)
                 .WithMany(a => a.ProductsCreatedBy)

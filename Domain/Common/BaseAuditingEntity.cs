@@ -9,19 +9,19 @@ namespace Domain.Common
 {
     public  class BaseAuditingEntity
     {
-        public string CreatedBy { get; set; } = null!;
+        public string? CreatedBy { get; set; } = null!;
 
-        public string CreatedAt { get; set; } = null!;
-
-
-        public string UpdatedBy { get; set; } = null!;
-
-        public string UpdatedAt { get; set; } = null!;
+        public DateTime? CreatedAt { get; set; } 
 
 
-        public string DeletedBy { get; set; } = null!;
+        public string? UpdatedBy { get; set; } = null!;
 
-        public string DeletedAt { get; set; } = null!;
+        public DateTime? UpdatedAt { get; set; } 
+
+
+        public string? DeletedBy { get; set; } = null!;
+
+        public DateTime? DeletedAt { get; set; } 
 
 
         public ApplicationUser Creator { get; set; }

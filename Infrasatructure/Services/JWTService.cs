@@ -29,9 +29,9 @@ namespace Infrastructure.Services
                        {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id),
                 new Claim(JwtRegisteredClaimNames.Name,user.UserName),
-                new Claim(ClaimTypes.Role,(await userManager.GetRolesAsync(user))[0] )
+                new Claim(ClaimTypes.Role,(await userManager.GetRolesAsync(user)).LastOrDefault() ??"User"  )
             };
-
+            var x = _config["Jwt:ExpiresInMinutes"];
             var expires = DateTime.UtcNow.AddMinutes(double.Parse(_config["Jwt:ExpiresInMinutes"]));
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

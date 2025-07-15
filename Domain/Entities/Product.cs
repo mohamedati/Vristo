@@ -35,6 +35,7 @@ namespace Domain.Entities
 
         public IEnumerable<OrderProduct> OrderProducts { get; set; }
 
+        public IEnumerable<WishList> Wishes { get; set; }
         public ProductCategory Category { get; set; }
 
     }

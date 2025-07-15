@@ -30,7 +30,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<int>("CartID")
+                    b.Property<int?>("CartID")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -68,10 +68,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("RefreshToken")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("RefreshTokenExpiredAt")
+                    b.Property<DateTime?>("RefreshTokenExpiredAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("SecurityStamp")
@@ -87,7 +86,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartID")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[CartID] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -108,28 +108,22 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -151,31 +145,25 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CartID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ProductID", "CartID");
@@ -199,12 +187,10 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
@@ -212,20 +198,16 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserID")
@@ -251,31 +233,25 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderId", "ProductId");
@@ -317,20 +293,16 @@ namespace Infrastructure.Migrations
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("EnDescription")
@@ -357,12 +329,10 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("UsersNotified")
@@ -401,20 +371,16 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("CreatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("DeletedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("DeletedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("EnDescription")
@@ -429,12 +395,10 @@ namespace Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("UpdatedAt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -446,6 +410,55 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("ProductCategory", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.WishList", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CustomerID")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("DeletedBy");
+
+                    b.HasIndex("ProductID");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("WishList", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -586,8 +599,6 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Cart", "Cart")
                         .WithOne("ApplicationUser")
                         .HasForeignKey("Domain.Entities.ApplicationUser", "CartID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_Cart_User");
 
                     b.Navigation("Cart");
@@ -599,21 +610,18 @@ namespace Infrastructure.Migrations
                         .WithMany("CartsCreatedBy")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Cart_CreateBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
                         .WithMany("CartsDeletedBy")
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Cart_DeletedBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Updater")
                         .WithMany("CartsUpdatedBy")
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Cart_UpdatedBy");
 
                     b.Navigation("Creator");
@@ -636,14 +644,12 @@ namespace Infrastructure.Migrations
                         .WithMany("CartProductsCreatedBy")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_cartProducts_CreateBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
                         .WithMany("CartProductsDeletedBy")
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_cartProducts_DeletedBy");
 
                     b.HasOne("Domain.Entities.Product", "Product")
@@ -657,7 +663,6 @@ namespace Infrastructure.Migrations
                         .WithMany("CartProductsUpdatedBy")
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_cartProducts_UpdatedBy");
 
                     b.Navigation("Cart");
@@ -677,21 +682,18 @@ namespace Infrastructure.Migrations
                         .WithMany("OrderCreatedBy")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Order_CreateBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
                         .WithMany("OrderDeletedBy")
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Order_DeletedBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Updater")
                         .WithMany("OrderUpdatedBy")
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Order_UpdatedBy");
 
                     b.Navigation("Creator");
@@ -707,14 +709,12 @@ namespace Infrastructure.Migrations
                         .WithMany("OrderProductsCreatedBy")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_OrderProduct_CreateBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
                         .WithMany("OrderProductsDeletedBy")
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_OrderProduct_DeletedBy");
 
                     b.HasOne("Domain.Entities.Order", "Order")
@@ -735,7 +735,6 @@ namespace Infrastructure.Migrations
                         .WithMany("OrderProductsUpdatedBy")
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_OrderProduct_UpdatedBy");
 
                     b.Navigation("Creator");
@@ -762,21 +761,18 @@ namespace Infrastructure.Migrations
                         .WithMany("ProductsCreatedBy")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Product_CreatedBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
                         .WithMany("ProductsDeletedBy")
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Product_DeletedBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Updater")
                         .WithMany("ProductsUpdatedBy")
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_Product_UpdatedBy");
 
                     b.Navigation("Category");
@@ -794,21 +790,18 @@ namespace Infrastructure.Migrations
                         .WithMany("ProductCategoriesCreatedBy")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_ProductCategory_CreateBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
                         .WithMany("ProductCategoriesDeletedBy")
                         .HasForeignKey("DeletedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_ProductCategories_DeletedBy");
 
                     b.HasOne("Domain.Entities.ApplicationUser", "Updater")
                         .WithMany("ProductCategoriesUpdatedBy")
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
                         .HasConstraintName("Fk_ProductCategories_UpdatedBy");
 
                     b.Navigation("Creator");
@@ -816,6 +809,51 @@ namespace Infrastructure.Migrations
                     b.Navigation("Deleter");
 
                     b.Navigation("Updater");
+                });
+
+            modelBuilder.Entity("Domain.Entities.WishList", b =>
+                {
+                    b.HasOne("Domain.Entities.ApplicationUser", "Creator")
+                        .WithMany("WishListCreatedBy")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_WishList_CreateBy");
+
+                    b.HasOne("Domain.Entities.ApplicationUser", "User")
+                        .WithMany("Wishes")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_WishList_Customer");
+
+                    b.HasOne("Domain.Entities.ApplicationUser", "Deleter")
+                        .WithMany("WishListDeletedBy")
+                        .HasForeignKey("DeletedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_WishList_DeletedBy");
+
+                    b.HasOne("Domain.Entities.Product", "Product")
+                        .WithMany("Wishes")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_WishList_Product");
+
+                    b.HasOne("Domain.Entities.ApplicationUser", "Updater")
+                        .WithMany("WishListUpdatedBy")
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasConstraintName("Fk_WishList_UpdatedBy");
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Deleter");
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Updater");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -906,6 +944,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("ProductsDeletedBy");
 
                     b.Navigation("ProductsUpdatedBy");
+
+                    b.Navigation("WishListCreatedBy");
+
+                    b.Navigation("WishListDeletedBy");
+
+                    b.Navigation("WishListUpdatedBy");
+
+                    b.Navigation("Wishes");
                 });
 
             modelBuilder.Entity("Domain.Entities.Cart", b =>
@@ -926,6 +972,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("CartProducts");
 
                     b.Navigation("OrderProducts");
+
+                    b.Navigation("Wishes");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProductCategory", b =>

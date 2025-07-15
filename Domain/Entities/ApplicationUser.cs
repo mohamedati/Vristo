@@ -9,13 +9,13 @@ namespace Domain.Entities
 {
     public  class ApplicationUser:IdentityUser
     {
-        public int CartID { get; set; }
+        public int? CartID { get; set; }
         
         public Cart Cart { get; set; }
 
-        public string RefreshToken {  get; set; }
+        public string? RefreshToken {  get; set; }
 
-        public DateTime RefreshTokenExpiredAt { get; set; }
+        public DateTime? RefreshTokenExpiredAt { get; set; }
         public IEnumerable<Cart> CartsCreatedBy { get; set; }
 
         public IEnumerable<Cart> CartsUpdatedBy { get; set; }
@@ -49,8 +49,11 @@ namespace Domain.Entities
         public IEnumerable<Order> OrderUpdatedBy { get; set; }
         public IEnumerable<Order> OrderDeletedBy { get; set; }
 
-      
+        public IEnumerable<WishList> WishListCreatedBy { get; set; }
+        public IEnumerable<WishList> WishListUpdatedBy { get; set; }
+        public IEnumerable<WishList> WishListDeletedBy { get; set; }
 
+        public IEnumerable<WishList> Wishes { get; set; }
 
     }
 }
