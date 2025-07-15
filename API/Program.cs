@@ -1,9 +1,13 @@
-﻿using API.Config;
+﻿using System.Globalization;
+using System.Reflection;
+using API.Config;
 using API.Extentions;
 using API.MiddleWares;
 using Infrastructure.Contexts;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Localization;
 using Serilog;
 using VristoMarket.Config;
 
@@ -14,9 +18,8 @@ builder.Services.AddControllersWithViews()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization();
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-
+builder.Services.AddLocalizationConfig();
 builder.Services.AddDbConfig(builder.Configuration);
 builder.Services.AddIdentityConfig();
 builder.Services.AddCorsPolicy();
@@ -62,10 +65,18 @@ if (!app.Environment.IsDevelopment())
 app.InitialzeDBAsync().Wait();
 app.UseHttpsRedirection();
 app.UseRouting();
+app.UseRequestLocalization(localizationOptions);
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Uploads")
+    ),
+    RequestPath = "/Uploads"
+});
 app.UseMiddleware<GlobalErrorHandlerMiddleWare>();
 
 app.UseSwagger();

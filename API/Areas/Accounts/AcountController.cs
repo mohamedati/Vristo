@@ -1,4 +1,5 @@
 ﻿using API.Extentions;
+using Application.Areas.Account.Commands;
 using Application.Areas.Account.Commands.LoginCommand;
 using Application.Areas.Account.Commands.RefreshTokenCommand;
 using Application.Areas.Account.Commands.RegisterCommand;
@@ -29,6 +30,13 @@ namespace API.Areas.Accounts
 
         [HttpPost("RefreshToken")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenCommand command)
+        {
+            return await sender.Send(command).ToGenericResponse();
+        }
+
+
+        [HttpPost("ForgetPassword")]
+        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordCommand command)
         {
             return await sender.Send(command).ToGenericResponse();
         }

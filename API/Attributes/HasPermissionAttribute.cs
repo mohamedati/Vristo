@@ -4,6 +4,7 @@ using Application.Common.Exceptions;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
 
@@ -11,13 +12,16 @@ namespace API.Attributes
 {
     public class HasPermissionAttribute : Attribute, IAsyncAuthorizationFilter
     {
+
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
+            var scope = context.HttpContext.RequestServices.CreateScope();
+            var Localizer = scope.ServiceProvider.GetRequiredService<IStringLocalizer<Resources.Resources>>();
             var authorizationHeader = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-
+            var lang = context.HttpContext.Request.Headers["culture"].FirstOrDefault();
             if (string.IsNullOrEmpty(authorizationHeader))
             {
-                throw new ForbiddenAccessException("InvalidToken");
+                throw new ForbiddenAccessException(Localizer["InvalidToken"]);
 
             }
 

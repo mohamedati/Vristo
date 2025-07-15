@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<EmbeddedResource Update="Resources.resx">
+			<CustomToolNamespace>Resources</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources.ar.resx">
+			<CustomToolNamespace>Resources</CustomToolNamespace>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources.en.resx">
+			<CustomToolNamespace>Resources</CustomToolNamespace>
+		</EmbeddedResource>
+	</ItemGroup>
 </Project>

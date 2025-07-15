@@ -9,6 +9,7 @@ namespace API.Config
         {
             Services.AddSwaggerGen(c =>
             {
+                c.OperationFilter<LanguageHeaderOperationFilter>();
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -34,7 +35,7 @@ namespace API.Config
         }
     });
             });
-
+       
         }
     }
 }

@@ -10,9 +10,9 @@ namespace Infrastructure.Services
 {
     public class StorageService : IStorageService
     {
-        public void RemoveFile( string FileName)
+        public void RemoveFile(string FolderName, string FileName)
         {
-            var path=Directory.GetCurrentDirectory()+"/API/Uploads/"+FileName;
+            var path=Directory.GetCurrentDirectory()+"/API/Uploads/"+FolderName+"/"+FileName;
 
             if (File.Exists(path))
             {

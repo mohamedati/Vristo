@@ -25,6 +25,7 @@ namespace VristoMarket.Config
             services.AddScoped<IJWTService, JWTService>();
             services.AddSingleton<IStorageService, StorageService>();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
       
 
