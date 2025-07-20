@@ -10,9 +10,9 @@ namespace Infrastructure.Services
 {
     public class StorageService : IStorageService
     {
-        public void RemoveFile(string FolderName, string FileName)
+        public void RemoveFile(string pathToRemove)
         {
-            var path=Directory.GetCurrentDirectory()+"/API/Uploads/"+FolderName+"/"+FileName;
+            var path=Directory.GetCurrentDirectory()+"/Uploads/"+ pathToRemove;
 
             if (File.Exists(path))
             {
@@ -23,7 +23,7 @@ namespace Infrastructure.Services
 
         public string SaveFile(IFormFile File, string FolderName)
         {
-            var path = Directory.GetCurrentDirectory() + "/API/Uploads/" + FolderName ;
+            var path = Directory.GetCurrentDirectory() + "/Uploads/" + FolderName ;
 
             // التأكد من وجود المجلد، إذا لم يكن موجودًا فأنشئه
             if (!Directory.Exists(path))

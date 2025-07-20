@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace API.Extentions
+namespace Application.Common.Pagination
 {
     public static  class PaginationExtension
     {
-        public static async Task<PaginatedList<T>> Paginate<T>(this IQueryable<T> data, int pageSize, int page) {
+        public static async Task<PaginatedList<T>> PaginateAsync<T>(this IQueryable<T> data, int pageSize, int page) {
 
             var result = await data.ToListAsync();
 
@@ -22,7 +22,7 @@ namespace API.Extentions
 
         }
 
-        public static async Task<IQueryable<T>> sort<T>(this IQueryable<T> data, string SortColumn ,string SortDirection)
+        public static IQueryable<T> sort<T>(this IQueryable<T> data, string SortColumn ,string SortDirection)
         {
             var property = typeof(T)
                  .GetProperty(SortColumn, System.Reflection.BindingFlags.IgnoreCase |

@@ -31,6 +31,8 @@ namespace Domain.Entities
         public bool UsersNotified {  get; set; }
 
         public int CategoryID { get; set; }
+
+        public string ImageName {  get; set; }
         public IEnumerable<CartProduct> CartProducts { get; set; }
 
         public IEnumerable<OrderProduct> OrderProducts { get; set; }

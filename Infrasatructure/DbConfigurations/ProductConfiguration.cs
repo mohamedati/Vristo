@@ -21,6 +21,7 @@ namespace Infrastructure.DbConfigurations
                 entity.Property(a=>a.ArDescription).HasMaxLength(250);
                 entity.Property(a => a.EnDescription).HasMaxLength(250).IsUnicode(false);
                 entity.Property(a=>a.ArTitle).HasMaxLength(50);
+                entity.Property(a => a.ImageName).HasMaxLength(450);
                 entity.Property(a => a.EnTitle).HasMaxLength(50).IsUnicode(false);
                 entity.HasOne(a => a.Category)
                   .WithMany(a => a.Product)

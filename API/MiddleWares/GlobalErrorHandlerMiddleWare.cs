@@ -26,6 +26,10 @@ namespace API.MiddleWares
             catch (ValidationException ex)
             {
                 await _buildResponse(context, ex, HttpStatusCode.InternalServerError);
+            }catch(Exception ex)
+            {
+                await _buildResponse(context, ex.Message, HttpStatusCode.InternalServerError);
+
             }
         }
 

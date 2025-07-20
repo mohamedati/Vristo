@@ -13,6 +13,6 @@ namespace Application.Common.Interfaces
        string SaveFile(IFormFile File, string FolderName);
 
 
-        void  RemoveFile(string FolderName,string FileName);
+       void RemoveFile(string pathToRemove);
     }
 }

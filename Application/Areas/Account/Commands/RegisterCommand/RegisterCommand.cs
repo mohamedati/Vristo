@@ -65,7 +65,7 @@ namespace Application.Areas.Account.Commands.RegisterCommand
                 if (!result.Succeeded)
                 {
                     var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                    throw new Exception($"User creation failed: {errors}");
+                    throw new Exception($"{errors}");
                 }
             }
 

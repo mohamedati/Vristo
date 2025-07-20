@@ -27,7 +27,7 @@ builder.Services.ConfigureSerilog(builder.Configuration);
 builder.Services.ConfigSwagger();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMediatR();
-
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Host.UseSerilog(); // استخدم Serilog بدلاً من Logger الافتراضي
 
 

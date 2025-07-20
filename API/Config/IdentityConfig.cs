@@ -26,7 +26,9 @@ namespace API.Config
                     options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
                 })
                .AddEntityFrameworkStores<AppDbContext>()
-                  
+                   
+               .AddErrorDescriber<LocalizedIdentityErrorDescriber>()
+
 
                .AddDefaultTokenProviders();
 

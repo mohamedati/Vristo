@@ -17,11 +17,16 @@ namespace Application.Areas.Product.Commands.CreateProduct
 
         public CreateProductCommandValidator(IAppDbContext appDb, IStringLocalizer<Resources.Resources> localizer)
         {
+            RuleFor(x=>x)
+                .MustAsync((command, props, CancellationToken) => IsNamesAlreadyExist(props.EnName,props.ArName))
+                .WithMessage(localizer["AlreadyExists"]);
+
             RuleFor(x => x.ArName)
                 .NotEmpty()
                 .WithMessage(localizer["Required"])
                 .MaximumLength(50)
-                 .WithMessage(localizer["MaxLength",50]);
+                 .WithMessage(localizer["MaxLength", 50]);
+                 
 
 
             RuleFor(x => x.EnName)
@@ -73,6 +78,12 @@ namespace Application.Areas.Product.Commands.CreateProduct
 
             this.appDb = appDb;
             this.localizer = localizer;
+        }
+
+        private async Task<bool> IsNamesAlreadyExist(string enName, string arName)
+        {
+            return await appDb.Products
+                .AnyAsync(a => a.EnName == enName || a.ArName == arName);
         }
 
         private async Task<bool> IsValidCategory(int categoryID)

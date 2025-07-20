@@ -32,7 +32,7 @@ namespace Application.Areas.Product.Commands.CreateProduct
 
         public int Quantity { get; set; }
 
-   
+         public IFormFile Image {  get; set; }
 
         public int CategoryID { get; set; }
 
@@ -40,13 +40,17 @@ namespace Application.Areas.Product.Commands.CreateProduct
     }
 
 
-    public class CreateProductCommandHandler(IAppDbContext appDb)
+    public class CreateProductCommandHandler(
+        IAppDbContext appDb,
+        IStorageService storage)
         : IRequestHandler<CreateProductCommand>
     {
         public async  Task Handle(CreateProductCommand request, CancellationToken cancellationToken)
         {
             var data= request.Adapt<Domain.Entities.Product>();
 
+           var fileName= storage.SaveFile(request.Image, "Products");
+            data.ImageName = fileName;
            await appDb.Products.AddAsync(data);
            await  appDb.SaveChangesAsync();
         }

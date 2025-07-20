@@ -7,25 +7,30 @@ namespace API.Attributes
 {
     public class CacheAttribute : Attribute, IAsyncActionFilter
     {
-        private readonly ICacheService cacheService;
-        private readonly TimeSpan tTL;
+      
+        private readonly int tTL;
 
-        public CacheAttribute(ICacheService cacheService,TimeSpan TTL)
+        public CacheAttribute(int TTL)
         {
-            this.cacheService = cacheService;
+     
             tTL = TTL;
         }
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var Key=context.HttpContext.Request.Path.ToString();
+            var request = context.HttpContext.Request;
+            var key = $"{request.Path}{request.QueryString}";
 
-            var data=await cacheService.GetByKey(Key);
+
+            var cacheService = context.HttpContext.RequestServices.GetRequiredService<ICacheService>();
+
+            var data=await cacheService.GetByKey(key);
 
             if (!string.IsNullOrEmpty(data))
             {
-                context.Result = new ContentResult
+                var unescaped = JsonSerializer.Deserialize<string>(data);
+                var result= JsonSerializer.Deserialize<Object>(unescaped);
+                context.Result = new JsonResult(result)
                 {
-                    Content = data,
                     ContentType = "application/json",
                     StatusCode = 200
                 };
@@ -37,7 +42,7 @@ namespace API.Attributes
                 if(actionExecutedContext.Result is ObjectResult objectResult && objectResult.Value != null)
                 {
                     var JSon = JsonSerializer.Serialize(objectResult.Value);
-                    await cacheService.SetByKey(Key, JSon, tTL);
+                    await cacheService.SetByKey(key, JSon, TimeSpan.FromMinutes(tTL));
                 }
               
                
